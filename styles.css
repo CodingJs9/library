@@ -65,3 +65,12 @@ header {
 	font-weight: 500;
 	font-style: italic;
 }
+
+.remove-book {
+	border: none;
+	background: #ff4e4e;
+	padding: 0.5rem;
+	margin-top: 0.5rem;
+	border-radius: 10px;
+	font-weight: 700;
+}
