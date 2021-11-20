@@ -1,5 +1,10 @@
 const addBookBtn = document.querySelector('.add-book')
 const booksGrid = document.querySelector('.books-grid')
+const addBookForm = document.querySelector('.add-book-form')
+const title = document.querySelector('.title')
+const author = document.querySelector('.author')
+const numOfBookPages = document.querySelector('.num-of-pages')
+const overlay = document.querySelector('.overlay')
 
 let myLibrary = []
 
@@ -14,7 +19,6 @@ class Book {
 function addBookToLibrary(title, author, pages) {
 	let book = new Book(title, author, pages)
 	myLibrary.push(book)
-	return myLibrary
 }
 
 function createBookElement(title, author, pages) {
@@ -52,5 +56,26 @@ function render() {
 		)
 	}
 }
+
+function clearGrid() {
+	while (booksGrid.firstChild) {
+		booksGrid.removeChild(booksGrid.firstChild)
+	}
+}
+
+addBookBtn.addEventListener('click', (e) => {
+	e.preventDefault()
+	addBookForm.classList.remove('no-display')
+	overlay.classList.remove('no-display')
+})
+
+addBookForm.addEventListener('submit', (e) => {
+	e.preventDefault()
+	addBookToLibrary(title.value, author.value, numOfBookPages.value)
+	clearGrid()
+	addBookForm.classList.add('no-display')
+	overlay.classList.add('no-display')
+	render()
+})
 
 render()
