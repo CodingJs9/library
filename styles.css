@@ -39,7 +39,7 @@ header {
 	transform: translateY(2px);
 }
 
-.books {
+.books-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	margin: 0 0.5rem;
