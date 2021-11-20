@@ -78,7 +78,6 @@ header {
 
 /* Form and overlay styles */
 .add-book-form {
-	/* display: none; */
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -115,4 +114,8 @@ header {
 	height: 100%;
 	width: 100%;
 	background: hsla(0, 0%, 0%, 0.7);
+}
+
+.no-display {
+	display: none;
 }
