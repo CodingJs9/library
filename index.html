@@ -8,11 +8,21 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+		<div class="overlay"></div>
 		<header>
 			<h1>Library</h1>
 			<button class="add-book">Add Book</button>
 		</header>
 		<main>
+			<form class="add-book-form">
+				Name: <br />
+				<input type="text" placeholder="Enter book name" /> <br />
+				Author: <br />
+				<input type="text" placeholder="Enter book author" /> <br />
+				Number of pages: <br />
+				<input type="number" placeholder="Enter the number of pages" /> <br />
+				<button type="submit">Add Book</button>
+			</form>
 			<div class="books-grid"></div>
 		</main>
 		<script src="script.js"></script>
