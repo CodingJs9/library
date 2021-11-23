@@ -7,7 +7,7 @@ const author = document.querySelector('.author')
 const numOfBookPages = document.querySelector('.num-of-pages')
 const overlay = document.querySelector('.overlay')
 
-let myLibrary = []
+let myLibrary = JSON.parse(localStorage.getItem('library')) || []
 
 class Book {
 	constructor(title, author, pages) {
@@ -30,7 +30,7 @@ addBookForm.addEventListener('submit', (e) => {
 	addBookToLibrary(title.value, author.value, numOfBookPages.value)
 	addBookForm.classList.add('no-display')
 	overlay.classList.add('no-display')
-	render()
+	saveAndRender()
 })
 
 // Functions
@@ -60,7 +60,7 @@ function createBookElement(title, author, pages) {
 	removeBook.addEventListener('click', () => {
 		myLibrary = myLibrary.filter((book) => book.title != title)
 		clearGrid()
-		render()
+		saveAndRender()
 	})
 
 	card.appendChild(bookTitle)
@@ -79,6 +79,15 @@ function render() {
 			myLibrary[i].numOfPages
 		)
 	}
+}
+
+function save() {
+	localStorage.setItem('library', JSON.stringify(myLibrary))
+}
+
+function saveAndRender() {
+	save()
+	render()
 }
 
 function clearGrid() {
