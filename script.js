@@ -1,3 +1,4 @@
+// Element Selectors
 const addBookBtn = document.querySelector('.add-book')
 const booksGrid = document.querySelector('.books-grid')
 const addBookForm = document.querySelector('.add-book-form')
@@ -16,6 +17,23 @@ class Book {
 	}
 }
 
+// Event listeners
+addBookBtn.addEventListener('click', (e) => {
+	e.preventDefault()
+	addBookForm.classList.remove('no-display')
+	overlay.classList.remove('no-display')
+})
+
+addBookForm.addEventListener('submit', (e) => {
+	e.preventDefault()
+	clearGrid()
+	addBookToLibrary(title.value, author.value, numOfBookPages.value)
+	addBookForm.classList.add('no-display')
+	overlay.classList.add('no-display')
+	render()
+})
+
+// Functions
 function addBookToLibrary(title, author, pages) {
 	let book = new Book(title, author, pages)
 	myLibrary.push(book)
@@ -38,6 +56,12 @@ function createBookElement(title, author, pages) {
 	bookAuthor.innerText = author
 	numOfPages.innerText = pages
 	removeBook.innerText = 'Remove'
+
+	removeBook.addEventListener('click', () => {
+		myLibrary = myLibrary.filter((book) => book.title != title)
+		clearGrid()
+		render()
+	})
 
 	card.appendChild(bookTitle)
 	card.appendChild(bookAuthor)
@@ -62,20 +86,5 @@ function clearGrid() {
 		booksGrid.removeChild(booksGrid.firstChild)
 	}
 }
-
-addBookBtn.addEventListener('click', (e) => {
-	e.preventDefault()
-	addBookForm.classList.remove('no-display')
-	overlay.classList.remove('no-display')
-})
-
-addBookForm.addEventListener('submit', (e) => {
-	e.preventDefault()
-	addBookToLibrary(title.value, author.value, numOfBookPages.value)
-	clearGrid()
-	addBookForm.classList.add('no-display')
-	overlay.classList.add('no-display')
-	render()
-})
 
 render()
