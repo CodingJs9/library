@@ -5,6 +5,7 @@ const addBookForm = document.querySelector('.add-book-form')
 const title = document.querySelector('.title')
 const author = document.querySelector('.author')
 const numOfBookPages = document.querySelector('.num-of-pages')
+const isReadCheckbox = document.querySelector('.is-read')
 const overlay = document.querySelector('.overlay')
 
 let myLibrary = JSON.parse(localStorage.getItem('library')) || []
@@ -14,6 +15,7 @@ class Book {
 		this.title = title
 		this.author = author
 		this.numOfPages = pages
+		this.isRead = isReadCheckbox.checked
 	}
 }
 
@@ -39,23 +41,26 @@ function addBookToLibrary(title, author, pages) {
 	myLibrary.push(book)
 }
 
-function createBookElement(title, author, pages) {
+function createBookElement(title, author, pages, isRead) {
 	const card = document.createElement('div')
 	const bookTitle = document.createElement('h3')
 	const bookAuthor = document.createElement('h3')
 	const numOfPages = document.createElement('p')
 	const removeBook = document.createElement('button')
+	const isReadBtn = document.createElement('button')
 
-	card.classList.add('card')
-	bookTitle.classList.add('title')
-	bookAuthor.classList.add('author')
-	numOfPages.classList.add('pages')
-	removeBook.classList.add('remove-book')
+	card.className = 'card'
+	bookTitle.className = 'title'
+	bookAuthor.className = 'author'
+	numOfPages.className = 'pages'
+	removeBook.className = 'remove-book btn'
+	isReadBtn.className = 'read-btn btn'
 
 	bookTitle.innerText = title
 	bookAuthor.innerText = author
 	numOfPages.innerText = pages
 	removeBook.innerText = 'Remove'
+	isReadBtn.innerText = isRead ? 'Read' : 'Not Read'
 
 	removeBook.addEventListener('click', () => {
 		myLibrary = myLibrary.filter((book) => book.title != title)
@@ -63,9 +68,16 @@ function createBookElement(title, author, pages) {
 		saveAndRender()
 	})
 
+	isReadBtn.addEventListener('click', () => {
+		isRead = !isRead
+		clearGrid()
+		saveAndRender()
+	})
+
 	card.appendChild(bookTitle)
 	card.appendChild(bookAuthor)
 	card.appendChild(numOfPages)
+	card.appendChild(isReadBtn)
 	card.appendChild(removeBook)
 
 	booksGrid.appendChild(card)
@@ -76,9 +88,14 @@ function render() {
 		createBookElement(
 			myLibrary[i].title,
 			myLibrary[i].author,
-			myLibrary[i].numOfPages
+			myLibrary[i].numOfPages,
+			myLibrary[i].isRead
 		)
 	}
+	title.value = null
+	author.value = null
+	numOfBookPages.value = null
+	isReadCheckbox.value = null
 }
 
 function save() {
