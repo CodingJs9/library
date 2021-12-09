@@ -7,6 +7,7 @@ const author = document.querySelector('.author');
 const numOfBookPages = document.querySelector('.num-of-pages');
 const isReadCheckbox = document.querySelector('.is-read');
 const overlay = document.querySelector('.overlay');
+const closePopupBtn = document.querySelector('.close');
 
 let myLibrary = JSON.parse(localStorage.getItem('library')) || [];
 
@@ -23,6 +24,11 @@ class Book {
 addBookBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	openPopup();
+});
+
+closePopupBtn.addEventListener('click', (e) => {
+	e.preventDefault();
+	closePopup();
 });
 
 addBookForm.addEventListener('submit', (e) => {
